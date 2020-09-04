@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Delear delear = response.body().getDelear();
                                 if (delear.getStatus().equals("ACTIVE")) {
                                     SharedPrefManager.getInstance(LoginActivity.this).saveDelear(delear);
-                                    Toast.makeText(LoginActivity.this, delear.getTblDelearId() + "lbkjkv", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(LoginActivity.this, delear.getTblDelearId() + "lbkjkv", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);

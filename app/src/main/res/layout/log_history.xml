@@ -70,8 +70,8 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="3dp" />
 
@@ -91,13 +91,7 @@
                         android:id="@+id/company"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp" />
-
-                    <TextView
-                        android:id="@+id/charge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="10dp" />
 
                 </LinearLayout>
 

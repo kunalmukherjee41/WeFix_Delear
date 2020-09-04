@@ -8,7 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +32,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CloseLogFragment extends Fragment {
+public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView;
     List<Logs> logsList;
     ProgressDialog progressBar;
+
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +49,9 @@ public class CloseLogFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mSwipeRefreshLayout = view.findViewById(R.id.container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -98,5 +105,14 @@ public class CloseLogFragment extends Fragment {
                 }
         );
 
+    }
+
+    @Override
+    public void onRefresh() {
+        getLog();
+        if (logsList != null) {
+            Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(() -> mSwipeRefreshLayout.setRefreshing(false), 1000);
+        }
     }
 }

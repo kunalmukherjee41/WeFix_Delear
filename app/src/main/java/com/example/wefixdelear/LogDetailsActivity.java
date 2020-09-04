@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class LogDetailsActivity extends AppCompatActivity {
 
-    TextView date, name, email, phone;
+    TextView date, name, email;
     TextView address, category;
     TextView company, amount, status;
     Logs logs;
@@ -43,8 +43,8 @@ public class LogDetailsActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
 //        log_type = findViewById(R.id.log_type);
         name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
-        phone = findViewById(R.id.phone_number);
+        email = findViewById(R.id.contact);
+//        phone = findViewById(R.id.phone_number);
         address = findViewById(R.id.address);
         category = findViewById(R.id.category);
         image1 = findViewById(R.id.image1);
@@ -74,9 +74,9 @@ public class LogDetailsActivity extends AppCompatActivity {
                             date.setText(logs.getCallLogDate());
 //                            log_type.setText(logs.getCallLogType());
                             name.setText(logs.getClientName());
-//                            String txt_contact = logs.getClientEmail() + "\n" + logs.getClientMb();
-                            email.setText(logs.getClientEmail());
-                            phone.setText(logs.getClientMb());
+                            String txt_contact = logs.getClientEmail() + "\n" + logs.getClientMb();
+                            email.setText(txt_contact);
+//                            phone.setText(logs.getClientMb());
                             address.setText(logs.getClientAddress());
                             amount.setText(String.valueOf(logs.getAmount()));
                             status.setText(logs.getCallLogStatus());

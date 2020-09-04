@@ -53,7 +53,7 @@ public class LogHistoryAdapter extends RecyclerView.Adapter<LogHistoryAdapter.Lo
 
         holder.id.setText(String.valueOf(logs.getCallLogId()));
         holder.date.setText(logs.getCallLogDate());
-        holder.charge.setText(String.valueOf(logs.getAmount()));
+//        holder.charge.setText(String.valueOf(logs.getAmount()));
         holder.company.setText(logs.getProductCompany());
 
         int tbl_category_id = logs.getRefCatId();
@@ -101,7 +101,7 @@ public class LogHistoryAdapter extends RecyclerView.Adapter<LogHistoryAdapter.Lo
 
         TextView date, id, details, name;
         ImageView image;
-        TextView name1, company, charge;
+        TextView name1, company;
         private RelativeLayout layout;
 
         public LogViewHolder(@NonNull View itemView) {
@@ -114,7 +114,7 @@ public class LogHistoryAdapter extends RecyclerView.Adapter<LogHistoryAdapter.Lo
             image = itemView.findViewById(R.id.image);
             name1 = itemView.findViewById(R.id.name1);
             company = itemView.findViewById(R.id.company);
-            charge = itemView.findViewById(R.id.charge);
+//            charge = itemView.findViewById(R.id.charge);
             layout = itemView.findViewById(R.id.layout);
 
         }
