@@ -57,7 +57,11 @@ public class Delear {
     @Expose
     public String password;
 
-    public Delear(int tblDelearId, String delearName, String address, String pin, String contact1, String contact2, String panno, String gstin, String email, String website, String status, String username, String password) {
+    @SerializedName("plus_member")
+    @Expose
+    public String plusMunber;
+
+    public Delear(int tblDelearId, String delearName, String address, String pin, String contact1, String contact2, String panno, String gstin, String email, String website, String status, String username, String password, String plusMunber) {
         this.tblDelearId = tblDelearId;
         this.delearName = delearName;
         this.address = address;
@@ -71,6 +75,7 @@ public class Delear {
         this.status = status;
         this.username = username;
         this.password = password;
+        this.plusMunber = plusMunber;
     }
 
     public int getTblDelearId() {
@@ -175,5 +180,13 @@ public class Delear {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPlusMunber() {
+        return plusMunber;
+    }
+
+    public void setPlusMunber(String plusMunber) {
+        this.plusMunber = plusMunber;
     }
 }

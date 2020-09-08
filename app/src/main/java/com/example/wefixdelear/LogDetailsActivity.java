@@ -20,11 +20,10 @@ import retrofit2.Response;
 
 public class LogDetailsActivity extends AppCompatActivity {
 
-    TextView date, name, email;
+    TextView date, name, phone, email;
     TextView address, category;
-    TextView company, amount, status;
+    TextView company, status;
     Logs logs;
-    ImageView image1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +42,22 @@ public class LogDetailsActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
 //        log_type = findViewById(R.id.log_type);
         name = findViewById(R.id.name);
-        email = findViewById(R.id.contact);
-//        phone = findViewById(R.id.phone_number);
+        email = findViewById(R.id.email);
+        phone = findViewById(R.id.phone);
         address = findViewById(R.id.address);
         category = findViewById(R.id.category);
-        image1 = findViewById(R.id.image1);
         company = findViewById(R.id.company);
-        amount = findViewById(R.id.amount);
+//        amount = findViewById(R.id.amount);
         status = findViewById(R.id.status);
 
         getCategory(logs.getRefCatId());
+        date.setText(logs.getCallLogDate());
+        name.setText(logs.getClientName());
+        email.setText(logs.getClientEmail());
+        phone.setText(logs.getClientMb());
+        address.setText(logs.getClientAddress());
+        status.setText(logs.getCallLogStatus());
+        company.setText(logs.getProductCompany());
 
     }
 
@@ -71,18 +76,6 @@ public class LogDetailsActivity extends AppCompatActivity {
                             assert response.body() != null;
                             Category cat = response.body().getCategory();
                             category.setText(cat.getTbl_category_name());
-                            date.setText(logs.getCallLogDate());
-//                            log_type.setText(logs.getCallLogType());
-                            name.setText(logs.getClientName());
-                            String txt_contact = logs.getClientEmail() + "\n" + logs.getClientMb();
-                            email.setText(txt_contact);
-//                            phone.setText(logs.getClientMb());
-                            address.setText(logs.getClientAddress());
-                            amount.setText(String.valueOf(logs.getAmount()));
-                            status.setText(logs.getCallLogStatus());
-//                            Glide.with(LogHistoryDetailsActivity.this).load("http://wefix.sitdoxford.org/product/" + cat.getTbl_category_image()).into(image1);
-                            Picasso.get().load("http://wefix.sitdoxford.org/product/" + cat.getTbl_category_image()).into(image1);
-                            company.setText(logs.getProductCompany());
                         }
                     }
 

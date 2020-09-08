@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.widget.TextView;
 
 import com.example.wefixdelear.fragments.LogFragment;
+import com.example.wefixdelear.storage.SharedPrefManager;
 
 import java.util.Objects;
 
@@ -32,7 +33,11 @@ public class MessageActivity extends AppCompatActivity {
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            startActivity(new Intent(this, MainActivity.class));
+            if (SharedPrefManager.getInstance(this).getDelear().getPlusMunber().equals("NO")) {
+                startActivity(new Intent(this, MainActivity.class));
+            } else {
+                startActivity(new Intent(this, DisplayActivity.class));
+            }
             finish();
         }, 4000);
 

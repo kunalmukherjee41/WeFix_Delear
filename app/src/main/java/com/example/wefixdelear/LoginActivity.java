@@ -31,6 +31,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+
+    Intent intent;
+
     EditText email, password;
     Button login;
     TextView forgotPassword;
@@ -97,10 +100,15 @@ public class LoginActivity extends AppCompatActivity {
                                 Delear delear = response.body().getDelear();
                                 if (delear.getStatus().equals("ACTIVE")) {
                                     SharedPrefManager.getInstance(LoginActivity.this).saveDelear(delear);
+                                    if (delear.getPlusMunber().equals("NO")) {
 //                                    Toast.makeText(LoginActivity.this, delear.getTblDelearId() + "lbkjkv", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    } else {
+                                        intent = new Intent(LoginActivity.this, DisplayActivity.class);
+                                    }
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
+
                                 } else {
                                     Snackbar snackBar = Snackbar.make(findViewById(R.id.id), "You Are No Longer in this Company!", Snackbar.LENGTH_LONG);
                                     snackBar.setAction("Action Message", v -> snackBar.dismiss());
@@ -131,7 +139,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
-            Intent intent = new Intent(this, MainActivity.class);
+            if (SharedPrefManager.getInstance(this).getDelear().getPlusMunber().equals("NO")) {
+                intent = new Intent(this, MainActivity.class);
+            } else {
+                intent = new Intent(this, DisplayActivity.class);
+            }
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

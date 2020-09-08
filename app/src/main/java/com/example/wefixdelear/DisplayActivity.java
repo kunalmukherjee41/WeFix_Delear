@@ -11,36 +11,27 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.wefixdelear.Api.RetrofitClient;
 import com.example.wefixdelear.fragments.AddLogFragment;
-import com.example.wefixdelear.fragments.CallLogFragment;
-import com.example.wefixdelear.fragments.InWarrantyFragment;
 import com.example.wefixdelear.fragments.LogFragment;
 import com.example.wefixdelear.fragments.PaymentFragment;
+import com.example.wefixdelear.fragments.WarrantyFragment;
 import com.example.wefixdelear.storage.SharedPrefManager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity {
+public class DisplayActivity extends AppCompatActivity {
 
     TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_display);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         String txt_name = "Welcome To " + SharedPrefManager.getInstance(this).getDelear().getDelearName();
         name.setText(txt_name);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        MainActivity.ViewPagerAdapter viewPagerAdapter = new MainActivity.ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addFragment(new InWarrantyFragment(), "Add Call Logs");
+        viewPagerAdapter.addFragment(new WarrantyFragment(), "Add Call Logs");
         viewPagerAdapter.addFragment(new LogFragment(), "Call Log");
         viewPagerAdapter.addFragment(new PaymentFragment(), "Payment History");
 
@@ -65,45 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static class ViewPagerAdapter extends FragmentPagerAdapter {
-
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-            this.fragments = new ArrayList<>();
-            this.titles = new ArrayList<>();
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            fragments.add(fragment);
-            titles.add(title);
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
-
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(DisplayActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -130,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.change_password:
-                startActivity(new Intent(MainActivity.this, ChangePasswordActivity.class));
+                startActivity(new Intent(DisplayActivity.this, ChangePasswordActivity.class));
                 return true;
         }
 

@@ -19,12 +19,12 @@ import android.widget.Toast;
 
 import com.example.wefixdelear.Api.RetrofitClient;
 import com.example.wefixdelear.R;
-import com.example.wefixdelear.adapter.LogHistoryAdapter;
-import com.example.wefixdelear.model.LogResponse;
+import com.example.wefixdelear.adapter.WarrantyLogHistoryAdapter;
 import com.example.wefixdelear.model.Logs;
+import com.example.wefixdelear.model.WarrantyLog;
+import com.example.wefixdelear.model.WarrantyLogResponse;
 import com.example.wefixdelear.storage.SharedPrefManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,28 +32,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-
-    private RecyclerView recyclerView;
-    private List<Logs> logsList;
-
-//    ProgressDialog progressBar;
-
-    TextView noRecord;
+public class WarrantyLogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private List<WarrantyLog> warrantyLogList;
+    //    ProgressDialog progressBar;
+    RecyclerView recyclerView;
+    TextView noRecord;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_call_log, container, false);
+        return inflater.inflate(R.layout.fragment_warranty_log, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mSwipeRefreshLayout = view.findViewById(R.id.container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -68,40 +64,34 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     }
 
-    public void getLog() {
+    private void getLog() {
 
 //        progressBar = new ProgressDialog(getActivity());
 //        progressBar.show();
 //        progressBar.setContentView(R.layout.progress_dialog);
 //        Objects.requireNonNull(progressBar.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
 
-        int ref_technician_id = SharedPrefManager.getInstance(getActivity()).getDelear().getTblDelearId();
+        int tblDelearId = SharedPrefManager.getInstance(getActivity()).getDelear().getTblDelearId();
 
-        Call<LogResponse> call = RetrofitClient
+        Call<WarrantyLogResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getCallLogForDelear(ref_technician_id, "app");
+                .getWarrantyCallLog(tblDelearId, "APP");
 
         call.enqueue(
-                new Callback<LogResponse>() {
+                new Callback<WarrantyLogResponse>() {
                     @Override
-                    public void onResponse(Call<LogResponse> call, Response<LogResponse> response) {
+                    public void onResponse(Call<WarrantyLogResponse> call, Response<WarrantyLogResponse> response) {
                         if (response.isSuccessful()) {
                             assert response.body() != null;
-                            logsList = response.body().getLog();
-                            List<Logs> logs = new ArrayList<>();
-                            for (Logs logs1 : logsList) {
-                                if (logs1.getCallLogStatus().equals("OPEN")) {
-                                    logs.add(logs1);
-                                }
-                            }
-                            if (!logs.isEmpty()) {
-                                LogHistoryAdapter adapter = new LogHistoryAdapter(getActivity(), logs);
+                            warrantyLogList = response.body().getWarrantyLogList();
+                            if (!warrantyLogList.isEmpty()) {
+                                WarrantyLogHistoryAdapter adapter = new WarrantyLogHistoryAdapter(getActivity(), warrantyLogList);
                                 recyclerView.setAdapter(adapter);
-//                                progressBar.dismiss();
                             } else {
                                 noRecord.setVisibility(View.VISIBLE);
                             }
+//                            progressBar.dismiss();
                         } else {
 //                            progressBar.dismiss();
                             Toast.makeText(getActivity(), "Logs Not Loaded! Something went wrong try Again", Toast.LENGTH_LONG).show();
@@ -109,19 +99,19 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     }
 
                     @Override
-                    public void onFailure(Call<LogResponse> call, Throwable t) {
-                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    public void onFailure(Call<WarrantyLogResponse> call, Throwable t) {
 //                        progressBar.dismiss();
-
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
         );
+
     }
 
     @Override
     public void onRefresh() {
         getLog();
-        if (logsList != null) {
+        if (warrantyLogList != null) {
             Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> mSwipeRefreshLayout.setRefreshing(false), 1000);
         }

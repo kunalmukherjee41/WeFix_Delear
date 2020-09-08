@@ -19,6 +19,8 @@ import com.example.wefixdelear.R;
 import com.example.wefixdelear.model.Category;
 import com.example.wefixdelear.model.Category1Response;
 import com.example.wefixdelear.model.Logs;
+import com.example.wefixdelear.model.Service;
+import com.example.wefixdelear.model.Service2Response;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -56,6 +58,28 @@ public class LogHistoryAdapter extends RecyclerView.Adapter<LogHistoryAdapter.Lo
 //        holder.charge.setText(String.valueOf(logs.getAmount()));
         holder.company.setText(logs.getProductCompany());
 
+        Call<Service2Response> call1 = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getServiceByID(logs.getRefServiceId(), "app");
+
+        call1.enqueue(
+                new Callback<Service2Response>() {
+                    @Override
+                    public void onResponse(Call<Service2Response> call, Response<Service2Response> response) {
+                        if (response.isSuccessful()) {
+                            assert response.body() != null;
+                            holder.service.setText(response.body().getService().getTbl_services_name());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Service2Response> call, Throwable t) {
+
+                    }
+                }
+        );
+
         int tbl_category_id = logs.getRefCatId();
 
         Call<Category1Response> call = RetrofitClient
@@ -72,7 +96,7 @@ public class LogHistoryAdapter extends RecyclerView.Adapter<LogHistoryAdapter.Lo
                             Category category = response.body().getCategory();
                             holder.name.setText(category.getTbl_category_name());
                             holder.name1.setText(category.getTbl_category_name());
-                            Picasso.get().load("http://wefix.sitdoxford.org/product/" + category.getTbl_category_image()).into(holder.image);
+                            Picasso.get().load("http://weservice.in/product/" + category.getTbl_category_image()).into(holder.image);
                         }
                     }
 
@@ -99,23 +123,20 @@ public class LogHistoryAdapter extends RecyclerView.Adapter<LogHistoryAdapter.Lo
 
     public static class LogViewHolder extends RecyclerView.ViewHolder {
 
-        TextView date, id, details, name;
+        TextView date, id, name;
         ImageView image;
-        TextView name1, company;
-        private RelativeLayout layout;
+        TextView name1, company, service;
 
         public LogViewHolder(@NonNull View itemView) {
             super(itemView);
 
             date = itemView.findViewById(R.id.date);
             id = itemView.findViewById(R.id.id);
-            details = itemView.findViewById(R.id.details);
             name = itemView.findViewById(R.id.name);
             image = itemView.findViewById(R.id.image);
             name1 = itemView.findViewById(R.id.name1);
             company = itemView.findViewById(R.id.company);
-//            charge = itemView.findViewById(R.id.charge);
-            layout = itemView.findViewById(R.id.layout);
+            service = itemView.findViewById(R.id.service);
 
         }
     }

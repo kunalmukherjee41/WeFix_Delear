@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -100,8 +101,8 @@ public class AddLogFragment extends Fragment implements SwipeRefreshLayout.OnRef
         getCategory();
         getService();
 
-        email_id.setText(SharedPrefManager.getInstance(getActivity()).getDelear().getEmail());
-        email_id.setFocusable(false);
+//        email_id.setText(SharedPrefManager.getInstance(getActivity()).getDelear().getEmail());
+//        email_id.setFocusable(false);
 
         //get the category from spinner
         category1.setOnItemSelectedListener(
@@ -174,7 +175,7 @@ public class AddLogFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     String txt_problem_des = problem_des.getText().toString();
                     String txt_company = company.getText().toString();
                     user_id = SharedPrefManager.getInstance(getActivity()).getDelear().getTblDelearId();
-                    String txt_address = SharedPrefManager.getInstance(getActivity()).getDelear().getAddress();
+//                    String txt_address = SharedPrefManager.getInstance(getActivity()).getDelear().getAddress();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
                     String currentDate = sdf.format(new Date());
@@ -182,11 +183,40 @@ public class AddLogFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
                     String currentTime = sdf1.format(new Date());
 
-                    if (TextUtils.isEmpty(txt1_address) || TextUtils.isEmpty(txt_billing_name) || TextUtils.isEmpty(txt_zip_code) ||
-                            TextUtils.isEmpty(txt_phone_number) || TextUtils.isEmpty(txt_email_id) || TextUtils.isEmpty(txt_problem_des) ||
-                            TextUtils.isEmpty(txt_service) || TextUtils.isEmpty(txt_category1) || TextUtils.isEmpty(txt_company) || TextUtils.isEmpty(txt_company)) {
-                        Toast.makeText(getActivity(), "All Field are required", Toast.LENGTH_LONG).show();
+                    if (TextUtils.isEmpty(txt1_address)) {
                         progressBar.dismiss();
+                        address.setFocusable(true);
+                        Toast.makeText(getActivity(), "Address Missing! Enter Your Address", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_billing_name)) {
+                        progressBar.dismiss();
+                        name.setFocusable(true);
+                        Toast.makeText(getActivity(), "Name Missing! Enter Your Name", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_zip_code)) {
+                        progressBar.dismiss();
+                        zip_code.setFocusable(true);
+                        Toast.makeText(getActivity(), "Pin Code Missing! Enter Your Address Pin Code", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_phone_number)) {
+                        progressBar.dismiss();
+                        phone_number.setFocusable(true);
+                        Toast.makeText(getActivity(), "Phone Number Missing! Enter Your Phone Number", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_email_id)) {
+                        progressBar.dismiss();
+                        email_id.setFocusable(true);
+                        Toast.makeText(getActivity(), "Email Missing! Enter Your Email Address", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_problem_des)) {
+                        progressBar.dismiss();
+                        problem_des.setFocusable(true);
+                        Toast.makeText(getActivity(), "Enter Your Problem Description", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_service)) {
+                        progressBar.dismiss();
+                        Toast.makeText(getActivity(), "Select The Service", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_category1)) {
+                        progressBar.dismiss();
+                        Toast.makeText(getActivity(), "Select The Category", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(txt_company)) {
+                        progressBar.dismiss();
+                        company.setFocusable(true);
+                        Toast.makeText(getActivity(), "Enter The Company Name", Toast.LENGTH_SHORT).show();
                     } else {
                         Call<ResponseBody> call = RetrofitClient
                                 .getInstance()

@@ -13,17 +13,15 @@ import android.view.ViewGroup;
 
 import com.example.wefixdelear.MainActivity;
 import com.example.wefixdelear.R;
-import com.example.wefixdelear.storage.SharedPrefManager;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Objects;
-
-public class LogFragment extends Fragment {
+public class WarrantyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_log, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_warranty, container, false);
     }
 
     @Override
@@ -36,11 +34,9 @@ public class LogFragment extends Fragment {
 
         MainActivity.ViewPagerAdapter viewPagerAdapter = new MainActivity.ViewPagerAdapter(getChildFragmentManager());
 
-        if (SharedPrefManager.getInstance(getActivity()).getDelear().getPlusMunber().equals("YES")) {
-            viewPagerAdapter.addFragment(new CallLogFragment(), "Open Log");
-            viewPagerAdapter.addFragment(new CloseLogFragment(), "Closed Log");
-        }
-        viewPagerAdapter.addFragment(new WarrantyLogFragment(), "In Warranty Log");
+        viewPagerAdapter.addFragment(new InWarrantyFragment(), "In Warranty");
+        viewPagerAdapter.addFragment(new AddLogFragment(), "Out Of Warranty");
+//        viewPagerAdapter.addFragment(new CancelledLogFragment(), "Cancelled Log");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

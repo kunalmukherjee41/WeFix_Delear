@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wefixdelear.Api.RetrofitClient;
@@ -36,7 +37,9 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     RecyclerView recyclerView;
     List<Logs> logsList;
-    ProgressDialog progressBar;
+//    ProgressDialog progressBar;
+
+    TextView noRecord;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -53,6 +56,9 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
         mSwipeRefreshLayout = view.findViewById(R.id.container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
+        noRecord = view.findViewById(R.id.no_record);
+        noRecord.setVisibility(View.GONE);
+
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -62,10 +68,10 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     public void getLog() {
-        progressBar = new ProgressDialog(getActivity());
-        progressBar.show();
-        progressBar.setContentView(R.layout.progress_dialog);
-        Objects.requireNonNull(progressBar.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+//        progressBar = new ProgressDialog(getActivity());
+//        progressBar.show();
+//        progressBar.setContentView(R.layout.progress_dialog);
+//        Objects.requireNonNull(progressBar.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
 
         int client_ref_id = SharedPrefManager.getInstance(getActivity()).getDelear().getTblDelearId();
 
@@ -80,7 +86,7 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
                     public void onResponse(Call<LogResponse> call, Response<LogResponse> response) {
 //                        logsList.clear();
                         if (response.isSuccessful()) {
-                            progressBar.dismiss();
+//                            progressBar.dismiss();
                             assert response.body() != null;
                             logsList = response.body().getLog();
                             List<Logs> logs = new ArrayList<>();
@@ -89,10 +95,14 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
                                     logs.add(logs1);
                                 }
                             }
-                            LogHistoryAdapter adapter = new LogHistoryAdapter(getActivity(), logs);
-                            recyclerView.setAdapter(adapter);
+                            if(!logs.isEmpty()) {
+                                LogHistoryAdapter adapter = new LogHistoryAdapter(getActivity(), logs);
+                                recyclerView.setAdapter(adapter);
+                            } else {
+                                noRecord.setVisibility(View.VISIBLE);
+                            }
                         } else {
-                            progressBar.dismiss();
+//                            progressBar.dismiss();
                             Toast.makeText(getActivity(), "Something went wrong try Again", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -100,7 +110,7 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
                     @Override
                     public void onFailure(Call<LogResponse> call, Throwable t) {
                         Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressBar.dismiss();
+//                        progressBar.dismiss();
                     }
                 }
         );

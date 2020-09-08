@@ -40,6 +40,7 @@ public class SharedPrefManager {
         editor.putString("status", delear.getStatus());
         editor.putString("username", delear.getUsername());
         editor.putString("password", delear.getPassword());
+        editor.putString("plus_member", delear.getPlusMunber());
 
         editor.apply();
     }
@@ -67,7 +68,8 @@ public class SharedPrefManager {
                 sharedPreferences.getString("website", null),
                 sharedPreferences.getString("status", null),
                 sharedPreferences.getString("username", null),
-                sharedPreferences.getString("password", null)
+                sharedPreferences.getString("password", null),
+                sharedPreferences.getString("plus_member", null)
 
         );
     }
