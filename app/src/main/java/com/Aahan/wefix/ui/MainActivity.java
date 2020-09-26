@@ -1,4 +1,4 @@
-package com.Aahan.wefix;
+package com.Aahan.wefix.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.Aahan.wefix.fragments.InWarrantyFragment;
+import com.Aahan.wefix.R;
+import com.Aahan.wefix.fragments.AddLogFragment;
 import com.Aahan.wefix.fragments.LogFragment;
 import com.Aahan.wefix.fragments.PaymentFragment;
 import com.Aahan.wefix.storage.SharedPrefManager;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setOffscreenPageLimit(3);
 
         name = findViewById(R.id.name);
         String txt_name = "Welcome To " + SharedPrefManager.getInstance(this).getDelear().getDelearName();
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addFragment(new InWarrantyFragment(), "Add Call Logs");
+        viewPagerAdapter.addFragment(new AddLogFragment(), "Add Call Logs");
         viewPagerAdapter.addFragment(new LogFragment(), "Call Log");
         viewPagerAdapter.addFragment(new PaymentFragment(), "Payment History");
 

@@ -1,4 +1,4 @@
-package com.Aahan.wefix;
+package com.Aahan.wefix.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.Aahan.wefix.R;
 import com.Aahan.wefix.fragments.LogFragment;
 import com.Aahan.wefix.fragments.PaymentFragment;
 import com.Aahan.wefix.fragments.WarrantyFragment;

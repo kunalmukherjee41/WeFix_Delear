@@ -72,7 +72,7 @@ public class WarrantyLogFragment extends Fragment implements SwipeRefreshLayout.
         Call<WarrantyLogResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getWarrantyCallLog(tblDelearId, "APP");
+                .getWarrantyCallLog(tblDelearId);
 
         call.enqueue(
                 new Callback<WarrantyLogResponse>() {

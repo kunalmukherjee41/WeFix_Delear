@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.Aahan.wefix.Api.RetrofitClient;
-import com.Aahan.wefix.MessageActivity;
+import com.Aahan.wefix.ui.MessageActivity;
 import com.Aahan.wefix.R;
 import com.Aahan.wefix.model.Company;
 import com.Aahan.wefix.model.CompanyResponse;

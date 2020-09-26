@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.Aahan.wefix.Api.RetrofitClient;
 import com.Aahan.wefix.R;
-import com.Aahan.wefix.WarrantyLogHistoryActivity;
+import com.Aahan.wefix.ui.WarrantyLogHistoryActivity;
 import com.Aahan.wefix.model.Company;
 import com.Aahan.wefix.model.Company1Response;
 import com.Aahan.wefix.model.WarrantyLog;
@@ -49,7 +49,7 @@ public class WarrantyLogHistoryAdapter extends RecyclerView.Adapter<WarrantyLogH
         Call<Company1Response> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getCompanyById(warrantyLog.getRefCompanyId(), "app");
+                .getCompanyById(warrantyLog.getRefCompanyId());
 
         call.enqueue(
                 new Callback<Company1Response>() {

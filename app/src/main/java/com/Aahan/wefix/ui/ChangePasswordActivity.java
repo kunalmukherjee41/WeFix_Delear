@@ -1,4 +1,4 @@
-package com.Aahan.wefix;
+package com.Aahan.wefix.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.Aahan.wefix.Api.RetrofitClient;
+import com.Aahan.wefix.R;
 import com.Aahan.wefix.model.MyResponse;
 import com.Aahan.wefix.storage.SharedPrefManager;
 

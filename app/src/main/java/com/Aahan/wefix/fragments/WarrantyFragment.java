@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.Aahan.wefix.MainActivity;
+import com.Aahan.wefix.ui.MainActivity;
 import com.Aahan.wefix.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -34,9 +34,8 @@ public class WarrantyFragment extends Fragment {
 
         MainActivity.ViewPagerAdapter viewPagerAdapter = new MainActivity.ViewPagerAdapter(getChildFragmentManager());
 
-        viewPagerAdapter.addFragment(new InWarrantyFragment(), "In Warranty");
+//        viewPagerAdapter.addFragment(new InWarrantyFragment(), "In Warranty");
         viewPagerAdapter.addFragment(new AddLogFragment(), "Out Of Warranty");
-//        viewPagerAdapter.addFragment(new CancelledLogFragment(), "Cancelled Log");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

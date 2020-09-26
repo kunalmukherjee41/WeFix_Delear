@@ -1,4 +1,4 @@
-package com.Aahan.wefix;
+package com.Aahan.wefix.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.Aahan.wefix.R;
 import com.Aahan.wefix.storage.SharedPrefManager;
+import com.Aahan.wefix.ui.DisplayActivity;
+import com.Aahan.wefix.ui.MainActivity;
 
 import java.util.Objects;
 

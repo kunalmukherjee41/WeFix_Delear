@@ -5,11 +5,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,11 +36,10 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     RecyclerView recyclerView;
     List<Logs> logsList;
-//    ProgressDialog progressBar;
-
+    private ProgressBar progressBar;
     TextView noRecord;
-
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private LogHistoryAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,8 +51,26 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SearchView searchView = view.findViewById(R.id.search_view);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (adapter != null)
+                    adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         mSwipeRefreshLayout = view.findViewById(R.id.container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        progressBar = view.findViewById(R.id.progress_bar);
 
         noRecord = view.findViewById(R.id.no_record);
         noRecord.setVisibility(View.GONE);
@@ -74,7 +94,7 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
         Call<LogResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getCallLogForDelear(client_ref_id, "app");
+                .getCallLogForDelear(client_ref_id);
 
         call.enqueue(
                 new Callback<LogResponse>() {
@@ -87,13 +107,13 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
                             logsList = response.body().getLog();
                             List<Logs> logs = new ArrayList<>();
                             for (Logs logs1 : logsList) {
-                                if (logs1.getCallLogStatus().equals("CANCEL") || logs1.getCallLogStatus().equals("CLOSE") || logs1.getCallLogStatus().equals("REJECT")) {
+                                if (logs1.getCallLogStatus().equals("CANCEL") || logs1.getCallLogStatus().equals("CLOSE") || logs1.getCallLogStatus().equals("REJECT") || logs1.getCallLogStatus().equals("COMPLETE")) {
                                     logs.add(logs1);
                                 }
                             }
                             recyclerView.setItemViewCacheSize(logs.size());
                             if (!logs.isEmpty()) {
-                                LogHistoryAdapter adapter = new LogHistoryAdapter(getActivity(), logs);
+                                adapter = new LogHistoryAdapter(getActivity(), logs);
                                 adapter.setHasStableIds(true);
                                 adapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(adapter);
@@ -104,12 +124,16 @@ public class CloseLogFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                            progressBar.dismiss();
                             Toast.makeText(getActivity(), "Something went wrong try Again", Toast.LENGTH_LONG).show();
                         }
+                        progressBar.setVisibility(View.GONE);
+
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<LogResponse> call, @NonNull Throwable t) {
                         Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
 //                        progressBar.dismiss();
+                        progressBar.setVisibility(View.GONE);
+
                     }
                 }
         );

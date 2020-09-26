@@ -1,4 +1,4 @@
-package com.Aahan.wefix;
+package com.Aahan.wefix.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Aahan.wefix.Api.RetrofitClient;
+import com.Aahan.wefix.R;
 import com.Aahan.wefix.model.Delear;
 import com.Aahan.wefix.model.DelearResponse;
 import com.Aahan.wefix.storage.SharedPrefManager;
@@ -101,12 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Delear delear = response.body().getDelear();
                                 if (delear.getStatus().equals("ACTIVE")) {
                                     SharedPrefManager.getInstance(LoginActivity.this).saveDelear(delear);
-                                    if (delear.getPlusMunber().equals("NO")) {
-//                                    Toast.makeText(LoginActivity.this, delear.getTblDelearId() + "lbkjkv", Toast.LENGTH_SHORT).show();
-                                        intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    } else {
-                                        intent = new Intent(LoginActivity.this, DisplayActivity.class);
-                                    }
+                                    intent = new Intent(LoginActivity.this, DisplayActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
 

@@ -7,9 +7,11 @@ import com.Aahan.wefix.model.CompanyResponse;
 import com.Aahan.wefix.model.DelearResponse;
 import com.Aahan.wefix.model.LogResponse;
 import com.Aahan.wefix.model.MyResponse;
+import com.Aahan.wefix.model.PaidLogResponse;
 import com.Aahan.wefix.model.Service1Response;
 import com.Aahan.wefix.model.Service2Response;
 import com.Aahan.wefix.model.ServiceResponse;
+import com.Aahan.wefix.model.SumAllLogResponse;
 import com.Aahan.wefix.model.WarrantyLogResponse;
 
 import okhttp3.ResponseBody;
@@ -49,50 +51,32 @@ public interface Api {
     @GET("getcompany")
     Call<CompanyResponse> getCompany();
 
-    @FormUrlEncoded
     @PUT("getcategorybyid/{tbl_category_id}")
-    Call<Category1Response> getCategoryByID(
-            @Path("tbl_category_id") int tbl_category_id,
-            @Field("app") String app
-    );
+    Call<Category1Response> getCategoryByID(@Path("tbl_category_id") int tbl_category_id);
 
-    @FormUrlEncoded
     @PUT("getcalllogfordelear/{ref_delear_id}")
-    Call<LogResponse> getCallLogForDelear(
-            @Path("ref_delear_id") int ref_delear_id,
-            @Field("app") String app
-    );
+    Call<LogResponse> getCallLogForDelear(@Path("ref_delear_id") int ref_delear_id);
 
-    @FormUrlEncoded
+    @PUT("getpaidcalllog/{ref_delear_id}")
+    Call<PaidLogResponse> getPaidCallLog(@Path("ref_delear_id") int ref_delear_id);
+
+    @PUT("sumallpaidlog/{ref_delear_id}")
+    Call<SumAllLogResponse>sumAllPaidLog(@Path("ref_delear_id") int ref_delear_id);
+
     @PUT("getwarrantycalllogfordelear/{ref_delear_id}")
-    Call<WarrantyLogResponse> getWarrantyCallLog(
-            @Path("ref_delear_id") int ref_delear_id,
-            @Field("app") String app
-    );
+    Call<WarrantyLogResponse> getWarrantyCallLog(@Path("ref_delear_id") int ref_delear_id);
 
-    @FormUrlEncoded
     @PUT("getcompanybyid/{tbl_company_id}")
-    Call<Company1Response> getCompanyById(
-            @Path("tbl_company_id") int tbl_company_id,
-            @Field("app") String app
-    );
+    Call<Company1Response> getCompanyById(@Path("tbl_company_id") int tbl_company_id);
 
     @GET("getcategory")
     Call<CategoryResponse> getCategory1();
 
-    @FormUrlEncoded
     @PUT("getservice/{id}")
-    Call<Service1Response> getService(
-            @Path("id") int id,
-            @Field("app") String app
-    );
+    Call<Service1Response> getService(@Path("id") int id);
 
-    @FormUrlEncoded
     @PUT("getservice1/{id}")
-    Call<Service2Response> getServiceByID(
-            @Path("id") int id,
-            @Field("app") String app
-    );
+    Call<Service2Response> getServiceByID(@Path("id") int id);
 
     @GET("getallservice")
     Call<ServiceResponse> getAllServices();

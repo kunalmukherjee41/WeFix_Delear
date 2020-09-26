@@ -1,10 +1,11 @@
-package com.Aahan.wefix;
+package com.Aahan.wefix.ui;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.Aahan.wefix.R;
 import com.Aahan.wefix.model.WarrantyLog;
 
 import java.util.Objects;

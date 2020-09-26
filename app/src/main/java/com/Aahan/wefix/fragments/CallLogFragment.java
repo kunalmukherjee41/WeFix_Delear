@@ -5,11 +5,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,11 +37,13 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private RecyclerView recyclerView;
     private List<Logs> logsList;
 
-//    ProgressDialog progressBar;
+    private ProgressBar progressBar;
 
     TextView noRecord;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private LogHistoryAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,11 +62,29 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
         noRecord = view.findViewById(R.id.no_record);
         noRecord.setVisibility(View.GONE);
 
+        progressBar = view.findViewById(R.id.progress_bar);
+
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         getLog();
+
+        SearchView searchView = view.findViewById(R.id.search_view);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (adapter != null)
+                    adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
     }
 
@@ -77,7 +100,7 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
         Call<LogResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getCallLogForDelear(ref_technician_id, "app");
+                .getCallLogForDelear(ref_technician_id);
 
         call.enqueue(
                 new Callback<LogResponse>() {
@@ -86,15 +109,16 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         if (response.isSuccessful()) {
                             assert response.body() != null;
                             logsList = response.body().getLog();
+                            progressBar.setVisibility(View.GONE);
                             List<Logs> logs = new ArrayList<>();
                             for (Logs logs1 : logsList) {
-                                if (!logs1.getCallLogStatus().equals("CANCEL") && !logs1.getCallLogStatus().equals("CLOSE") && !logs1.getCallLogStatus().equals("REJECT")) {
+                                if (!logs1.getCallLogStatus().equals("CANCEL") && !logs1.getCallLogStatus().equals("CLOSE") && !logs1.getCallLogStatus().equals("REJECT") && !logs1.getCallLogStatus().equals("COMPLETE")) {
                                     logs.add(logs1);
                                 }
                             }
                             recyclerView.setItemViewCacheSize(logs.size());
                             if (!logs.isEmpty()) {
-                                LogHistoryAdapter adapter = new LogHistoryAdapter(getActivity(), logs);
+                                adapter = new LogHistoryAdapter(getActivity(), logs);
                                 adapter.setHasStableIds(true);
                                 adapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(adapter);
@@ -112,6 +136,7 @@ public class CallLogFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     public void onFailure(@NonNull Call<LogResponse> call, @NonNull Throwable t) {
                         Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
 //                        progressBar.dismiss();
+                        progressBar.setVisibility(View.GONE);
 
                     }
                 }

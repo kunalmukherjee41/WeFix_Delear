@@ -23,16 +23,22 @@ public class Service implements Serializable {
     @SerializedName("tbl_services_charge")
     @Expose
     private int tbl_services_charge;
+
+    @SerializedName("tbl_dealer_services_charge")
+    @Expose
+    private int tblDealerServiceCharge;
+
     @SerializedName("status")
     @Expose
     private String status;
 
-    public Service(int tbl_services_id, int cat_ref_id, String tbl_services_name, String tbl_services_des, int tbl_services_charge, String status) {
+    public Service(int tbl_services_id, int cat_ref_id, String tbl_services_name, String tbl_services_des, int tbl_services_charge, int tblDealerServiceCharge, String status) {
         this.tbl_services_id = tbl_services_id;
         this.cat_ref_id = cat_ref_id;
         this.tbl_services_name = tbl_services_name;
         this.tbl_services_des = tbl_services_des;
         this.tbl_services_charge = tbl_services_charge;
+        this.tblDealerServiceCharge = tblDealerServiceCharge;
         this.status = status;
     }
 
@@ -76,6 +82,14 @@ public class Service implements Serializable {
         this.tbl_services_charge = tbl_services_charge;
     }
 
+    public int getTblDealerServiceCharge() {
+        return tblDealerServiceCharge;
+    }
+
+    public void setTblDealerServiceCharge(int tblDealerServiceCharge) {
+        this.tblDealerServiceCharge = tblDealerServiceCharge;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -83,5 +97,4 @@ public class Service implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

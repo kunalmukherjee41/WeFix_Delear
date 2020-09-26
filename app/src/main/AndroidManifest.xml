@@ -14,18 +14,24 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="com.Aahan.wefix.WarrantyLogHistoryActivity" />
-        <activity android:name="com.Aahan.wefix.DisplayActivity" />
-        <activity android:name="com.Aahan.wefix.ChangePasswordActivity" />
         <activity
-            android:name="com.Aahan.wefix.LogDetailsActivity"
-            android:parentActivityName="com.Aahan.wefix.MainActivity" />
+            android:name=".ui.PaidCallLogActivity"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
-            android:name="com.Aahan.wefix.MessageActivity"
-            android:parentActivityName="com.Aahan.wefix.MainActivity" />
-        <activity android:name="com.Aahan.wefix.LoginActivity" />
-        <activity android:name="com.Aahan.wefix.MainActivity" />
-        <activity android:name="com.Aahan.wefix.StartActivity">
+            android:name=".ui.paymentLogActivity"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity android:name=".ui.WarrantyLogHistoryActivity" />
+        <activity android:name=".ui.DisplayActivity" />
+        <activity android:name=".ui.ChangePasswordActivity" />
+        <activity
+            android:name=".ui.LogDetailsActivity"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity
+            android:name=".ui.MessageActivity"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

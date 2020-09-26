@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.Aahan.wefix.MainActivity;
+import com.Aahan.wefix.ui.MainActivity;
 import com.Aahan.wefix.R;
 import com.Aahan.wefix.storage.SharedPrefManager;
 import com.google.android.material.tabs.TabLayout;
@@ -33,11 +33,11 @@ public class LogFragment extends Fragment {
 
         MainActivity.ViewPagerAdapter viewPagerAdapter = new MainActivity.ViewPagerAdapter(getChildFragmentManager());
 
-        if (SharedPrefManager.getInstance(getActivity()).getDelear().getPlusMunber().equals("YES")) {
-            viewPagerAdapter.addFragment(new CallLogFragment(), "Open Log");
-            viewPagerAdapter.addFragment(new CloseLogFragment(), "Closed Log");
-        }
-        viewPagerAdapter.addFragment(new WarrantyLogFragment(), "In Warranty Log");
+//        if (SharedPrefManager.getInstance(getActivity()).getDelear().getPlusMunber().equals("YES")) {
+        viewPagerAdapter.addFragment(new CallLogFragment(), "Open Log");
+        viewPagerAdapter.addFragment(new CloseLogFragment(), "Closed Log");
+//        }
+//        viewPagerAdapter.addFragment(new WarrantyLogFragment(), "In Warranty Log");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

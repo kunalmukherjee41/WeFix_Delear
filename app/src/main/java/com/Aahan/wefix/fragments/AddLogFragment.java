@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.Aahan.wefix.Api.RetrofitClient;
-import com.Aahan.wefix.MessageActivity;
+import com.Aahan.wefix.ui.MessageActivity;
 import com.Aahan.wefix.R;
 import com.Aahan.wefix.model.Category;
 import com.Aahan.wefix.model.CategoryResponse;
@@ -317,7 +317,7 @@ public class AddLogFragment extends Fragment implements SwipeRefreshLayout.OnRef
         Call<Service1Response> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getService(position, "WeFix");
+                .getService(position);
 
         call.enqueue(
                 new Callback<Service1Response>() {
