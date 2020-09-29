@@ -60,7 +60,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/custom_textview"
                     android:gravity="center"
-                    android:text="Log Details"
+                    android:text="@string/log_details"
                     android:textColor="#344EDD"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/category"
                     android:layout_marginTop="15dp"
-                    android:text="Customer Details"
+                    android:text="@string/customer_details"
                     android:textColor="#2e9cf3"
                     android:textSize="18sp" />
 
@@ -101,7 +101,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Name"
+                            android:text="@string/name"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -109,8 +109,8 @@
                             android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="55dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Address"
+                            android:text="@string/address"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -133,8 +133,8 @@
                             android:id="@+id/address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="35dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:lines="2"
                             android:textSize="18sp" />
 
@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Pin Code"
+                            android:text="@string/pin_code"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -158,8 +158,8 @@
                             android:id="@+id/pin"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="35dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -174,7 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Email ID"
+                            android:text="@string/email"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -182,8 +182,8 @@
                             android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Phone\nNumber"
+                            android:text="@string/phone_nnumber"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -206,8 +206,8 @@
                             android:id="@+id/phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -222,7 +222,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Date"
+                            android:text="@string/date"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -230,8 +230,8 @@
                             android:id="@+id/date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="65dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -246,7 +246,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Company"
+                            android:text="@string/company"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -254,8 +254,8 @@
                             android:id="@+id/company"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="25dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -270,7 +270,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Work Type"
+                            android:text="@string/work_type"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -278,35 +278,11 @@
                             android:id="@+id/service"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="25dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:text="Amount"-->
-<!--                            android:textSize="18sp"-->
-<!--                            android:textStyle="bold" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/amount"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="40dp"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:textSize="18sp" />-->
-
-<!--                    </LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -318,7 +294,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Problem\ndescription"
+                            android:text="@string/problem_ndescription"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -326,8 +302,8 @@
                             android:id="@+id/problem_des"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -342,7 +318,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Status"
+                            android:text="@string/status"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -350,8 +326,8 @@
                             android:id="@+id/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="50dp"
-                            android:gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical|end"
                             android:textSize="18sp" />
 
                     </LinearLayout>

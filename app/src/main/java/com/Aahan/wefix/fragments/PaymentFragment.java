@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +34,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentFragment extends Fragment {
+public class PaymentFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private List<Logs> logsList, onlyVisitLogsList = null, completeLogsList;
     private ProgressBar progressBar;
 
     private int ref_dealer_id, txtPaidLog = 0;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TextView totalLogs, onlyVisit, completeLog;
     private TextView paidLog, dueLog;
@@ -54,6 +57,9 @@ public class PaymentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ref_dealer_id = SharedPrefManager.getInstance(getActivity()).getDelear().getTblDelearId();
+
+        mSwipeRefreshLayout = view.findViewById(R.id.layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         getSumPaidLog();
 
@@ -104,10 +110,15 @@ public class PaymentFragment extends Fragment {
 
         totalCompleteCallLog.setOnClickListener(
                 v -> {
+                    List<Logs> paidCallLogList = new ArrayList<>();
+                    for (Logs l : completeLogsList) {
+                        if (l.getRefServiceId() != 37)
+                            paidCallLogList.add(l);
+                    }
                     if (!completeLogsList.isEmpty()) {
                         Intent intent = new Intent(getActivity(), paymentLogActivity.class);
                         intent.putExtra("message", "Complete Logs");
-                        intent.putExtra("logs", (Serializable) completeLogsList);
+                        intent.putExtra("logs", (Serializable) paidCallLogList);
                         startActivity(intent);
                     }
                 }
@@ -186,5 +197,17 @@ public class PaymentFragment extends Fragment {
                     }
                 }
         );
+    }
+
+    @Override
+    public void onRefresh() {
+        if (logsList != null)
+            logsList.clear();
+        getLog();
+        getSumPaidLog();
+        if (logsList != null) {
+            Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(() -> mSwipeRefreshLayout.setRefreshing(false), 1000);
+        }
     }
 }

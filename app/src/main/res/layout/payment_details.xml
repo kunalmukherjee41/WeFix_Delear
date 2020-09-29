@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Payment Date" />
+                    android:text="@string/payment_date" />
 
                 <TextView
                     android:id="@+id/date"
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:text="Payment ID" />
+                    android:text="@string/payment_id" />
 
                 <TextView
                     android:id="@+id/id"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Delear Name: "
+                    android:text="@string/dealer_name"
                     android:textColor="#0640e0" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_below="@id/delear_name"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Naration" />
+                    android:text="@string/naration" />
 
                 <TextView
                     android:id="@+id/naration"
@@ -99,7 +99,7 @@
                     android:layout_below="@id/naration"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="No Of All: " />
+                    android:text="@string/no_of_all" />
 
                 <TextView
                     android:id="@+id/no_of_call"
@@ -117,7 +117,7 @@
                     android:layout_below="@id/no_of_call"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Amount: " />
+                    android:text="@string/amount" />
 
                 <TextView
                     android:id="@+id/amount"

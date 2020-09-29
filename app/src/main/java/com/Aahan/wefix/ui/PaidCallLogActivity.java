@@ -1,6 +1,7 @@
 package com.Aahan.wefix.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.Aahan.wefix.Api.RetrofitClient;
 import com.Aahan.wefix.R;
@@ -24,17 +26,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaidCallLogActivity extends AppCompatActivity {
+public class PaidCallLogActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private ProgressBar progressBar;
     private int refDelearID;
     private List<PaidLog> paidLogList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paid_call_log);
+
+        mSwipeRefreshLayout = findViewById(R.id.layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,5 +89,16 @@ public class PaidCallLogActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public void onRefresh() {
+        if (paidLogList != null)
+            paidLogList.clear();
+        getPayment();
+        if (paidLogList != null) {
+            Toast.makeText(PaidCallLogActivity.this, "Refresh", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(() -> mSwipeRefreshLayout.setRefreshing(false), 1000);
+        }
     }
 }
